@@ -1,4 +1,4 @@
-import express from 'express';
+import express = require('express');
 import { TickerDataInterface } from './types/TickerDataInterface';
 import { getDCAValues, getHistoricalData, getRelativeChange } from './functions';
 
