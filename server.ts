@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express } from 'express';
 import { TickerDataInterface } from './types/TickerDataInterface';
 import { getDCAValues, getHistoricalData, getRelativeChange } from './functions';
 
@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config()
 const fetch = require('node-fetch');
 
-const app = express();
+const app: Express = express();
 app.use(cors()); // allow localhost 3000 (client) requests
 app.use(express.json());
 
