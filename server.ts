@@ -31,8 +31,6 @@ app.post("/get_chart_data", async (req: any, res: any) => {
     data.push(tickerData);
   }
 
-  console.log("got data");
-  
 
   // if nonzero increment, add DCA values with no growth for comparison in client
   if (incrementAmount > 0) {
