@@ -25,8 +25,8 @@ export default async function getHistoricalData(
       const values: number[] = [];
 
       for (let i = 0; i < quotes.length; i++) {
-        dates.push(quotes[i].date);
-        values.push(quotes[i].open)
+        dates.push(quotes[i].date.toISOString().split('T')[0]);
+        values.push(quotes[i].open.toFixed(2))
       }
       dates.reverse();
       values.reverse();

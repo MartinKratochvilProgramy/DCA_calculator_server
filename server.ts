@@ -25,6 +25,8 @@ app.post("/get_chart_data", async (req: any, res: any) => {
   for (let i = 0; i < tickers.length; i++) {
     // generate values for each ticker
     const tickerData: TickerDataInterface = await getHistoricalData(tickers[i], startDate);
+    console.log(tickerData);
+    
     const relativeChange: number[] = getRelativeChange(tickerData.values);
     
     tickerData.values = getDCAValues(relativeChange, tickerData.dates, startAmount, incrementAmount, investmentPeriod);
