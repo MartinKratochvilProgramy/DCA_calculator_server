@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import { TickerDataInterface } from './types/TickerDataInterface';
-import { getDCAValues, getHistoricalData, getRelativeChange } from './functions';
+import { getDCAValues, getHistoricalData, getRelativeChange, getNoInvestmentData } from './functions';
 
 const cors = require('cors');
 require('dotenv').config()
@@ -33,15 +33,10 @@ app.post("/get_chart_data", async (req: any, res: any) => {
 
   // if nonzero increment, add DCA values with no growth for comparison in client
   if (incrementAmount > 0) {
-    const nonInvestmentValues: TickerDataInterface = {
-      ticker: "No investment",
-      dates: data[0].dates,
-      // relative change is 1 for given time-frame
-      values: getDCAValues(new Array(data[0].dates.length).fill(1), data[0].dates, startAmount, incrementAmount, investmentPeriod)
-    }
+    const nonInvestmentValues: TickerDataInterface = getNoInvestmentData(startDate, startAmount, incrementAmount, investmentPeriod);
     data.push(nonInvestmentValues);
   }
-
+  
   res.json(data)
 })
 

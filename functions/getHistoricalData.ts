@@ -1,10 +1,5 @@
 const yahooFinance = require('yahoo-finance');
-
-interface TickerDataInterface {
-    ticker: string;
-    dates: string[];
-    values: number[];
-}
+import { TickerDataInterface } from '../types/TickerDataInterface';
 
 export default async function getHistoricalData(
   ticker: string, 
