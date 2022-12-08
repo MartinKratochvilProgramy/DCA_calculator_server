@@ -5,10 +5,17 @@ export default async function getHistoricalData(
   ticker: string, 
   startDate: string
 ): Promise<TickerDataInterface> {
+
+  let period = "d";
+  if (getYearsDiff(startDate, new Date()) > 5) {
+    // if period is longer than 5yrs, get weekly data
+    period = "w";
+  }
   
   const tickerData: TickerDataInterface = await new Promise((res, rej) => {
     yahooFinance.historical({
       symbol: ticker,
+      period: period,
       from: startDate,
       to:  new Date(),
     }, function (err: any, quotes: any) {
@@ -27,4 +34,10 @@ export default async function getHistoricalData(
     });
   })
   return tickerData;
+}
+
+function getYearsDiff(startDate: any, endDate: any) { // birthday is a date
+  var ageDifMs = startDate - endDate;
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
