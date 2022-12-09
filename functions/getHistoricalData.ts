@@ -1,16 +1,18 @@
 const yahooFinance = require('yahoo-finance');
 import { TickerDataInterface } from '../types/TickerDataInterface';
 
+const periodDict = {
+  "Weekly": "w",
+  "Monthly": "m",
+}
+
 export default async function getHistoricalData(
   ticker: string, 
-  startDate: string
+  startDate: string,
+  investmentPeriod: "Weekly" | "Monthly"
 ): Promise<TickerDataInterface> {
 
-  let period = "d";
-  if (getYearsDiff(startDate, new Date()) > 5) {
-    // if period is longer than 5yrs, get weekly data
-    period = "w";
-  }
+  const period = periodDict[investmentPeriod];
   
   const tickerData: TickerDataInterface = await new Promise((res, rej) => {
     yahooFinance.historical({
@@ -33,11 +35,6 @@ export default async function getHistoricalData(
       res({ticker, dates, values})
     });
   })
+  
   return tickerData;
-}
-
-function getYearsDiff(startDate: any, endDate: any) { // birthday is a date
-  var ageDifMs = startDate - endDate;
-  var ageDate = new Date(ageDifMs); // miliseconds from epoch
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
 }

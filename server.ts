@@ -10,7 +10,7 @@ const app: Express = express();
 app.use(cors()); // allow localhost 3000 (client) requests
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4001;
 
 app.post("/get_chart_data", async (req: any, res: any) => {
   // generates chart data for each ticker in req.body.tickers
@@ -18,18 +18,17 @@ app.post("/get_chart_data", async (req: any, res: any) => {
   const startDate: string = req.body.startDate;
   const startAmount: number = req.body.startAmount;
   const incrementAmount: number = req.body.incrementAmount;
-  const investmentPeriod: string = req.body.investmentPeriod;
+  const investmentPeriod: "Weekly" | "Monthly" = req.body.investmentPeriod;
 
   const data: TickerDataInterface[] = []; // data array to be sent to client
 
   for (let i = 0; i < tickers.length; i++) {
     // generate values for each ticker
-    const tickerData: TickerDataInterface = await getHistoricalData(tickers[i], startDate);
-    console.log(tickerData);
+    const tickerData: TickerDataInterface = await getHistoricalData(tickers[i], startDate, investmentPeriod);
     
     const relativeChange: number[] = getRelativeChange(tickerData.values);
     
-    tickerData.values = getDCAValues(relativeChange, tickerData.dates, startAmount, incrementAmount, investmentPeriod);
+    tickerData.values = getDCAValues(relativeChange, startAmount, incrementAmount);
     data.push(tickerData);
   }
 
