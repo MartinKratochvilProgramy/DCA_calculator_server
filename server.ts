@@ -10,7 +10,7 @@ const app: Express = express();
 app.use(cors()); // allow localhost 3000 (client) requests
 app.use(express.json());
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4002;
 
 app.post("/get_chart_data", async (req: any, res: any) => {
   // generates chart data for each ticker in req.body.tickers

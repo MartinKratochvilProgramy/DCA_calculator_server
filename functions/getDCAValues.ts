@@ -7,7 +7,9 @@ export default function getDCAValues(
     const DCAValues: number[] = [startAmount];
   
     for (let i = 0; i < relativeChange.length; i++) {
-      DCAValues[DCAValues.length - 1] += incrementAmount;
+      if (i > 0) {
+        DCAValues[DCAValues.length - 1] += incrementAmount;
+      }
       
       DCAValues.push(relativeChange[i] * DCAValues[DCAValues.length - 1]);
     }
