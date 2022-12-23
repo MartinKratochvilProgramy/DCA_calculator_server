@@ -25,9 +25,9 @@ app.post("/get_chart_data", async (req: any, res: any) => {
   for (let i = 0; i < tickers.length; i++) {
     // generate values for each ticker
     const tickerData: TickerDataInterface = await getHistoricalData(tickers[i], startDate, investmentPeriod);
-    
+
     const relativeChange: number[] = getRelativeChange(tickerData.values);
-    
+
     tickerData.values = getDCAValues(relativeChange, startAmount, incrementAmount);
     data.push(tickerData);
   }
@@ -38,7 +38,7 @@ app.post("/get_chart_data", async (req: any, res: any) => {
     const nonInvestmentValues: TickerDataInterface = getNoInvestmentData(startDate, startAmount, incrementAmount, investmentPeriod);
     data.push(nonInvestmentValues);
   }
-  
+
   res.json(data)
 })
 
@@ -50,7 +50,7 @@ app.post("/validate_ticker", async (req: any, res: any) => {
   const stockInfoJson = await stockInfo.json()
 
   res.json(stockInfoJson.chart.error);
-  
+
 })
 
 app.listen(PORT, () => {
