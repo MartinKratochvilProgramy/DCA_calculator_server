@@ -3,8 +3,8 @@ import { TickerDataInterface } from '../types/TickerDataInterface';
 
 export default function getNoInvestmentData(
     startDate: string,
-    startAmount: number, 
-    incrementAmount: number, 
+    startAmount: number,
+    incrementAmount: number,
     investmentPeriod: string
 ): TickerDataInterface {
 
@@ -14,15 +14,15 @@ export default function getNoInvestmentData(
 
     if (investmentPeriod === "Weekly") {
         const numberOfWeeks = getWeeksDiff(new Date(startDate), new Date());
-        finalAmount = numberOfWeeks * incrementAmount;
-        
+        finalAmount = numberOfWeeks * incrementAmount + startAmount;
+
     } else if (investmentPeriod === "Monthly") {
         const numberOfMonths = getMonthsDiff(new Date(startDate), new Date());
-        finalAmount = numberOfMonths * incrementAmount;
+        finalAmount = numberOfMonths * incrementAmount + startAmount;
 
     } else if (investmentPeriod === "Yearly") {
         const numberOfYears = getYearsDiff(new Date(startDate), new Date());
-        finalAmount = numberOfYears * incrementAmount;
+        finalAmount = numberOfYears * incrementAmount + startAmount;
 
     }
 
@@ -37,7 +37,7 @@ export default function getNoInvestmentData(
 
 function getWeeksDiff(startDate: any, endDate: any) {
     const msInWeek = 1000 * 60 * 60 * 24 * 7;
-  
+
     return Math.round(Math.abs(endDate - startDate) / msInWeek);
 }
 
@@ -53,6 +53,5 @@ function getYearsDiff(startDate: any, endDate: any) { // birthday is a date
     var ageDifMs = startDate - endDate;
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
-  }
+}
 
-  
