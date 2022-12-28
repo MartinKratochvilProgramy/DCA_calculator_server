@@ -1,6 +1,7 @@
 import { TickerDataInterface } from './types/TickerDataInterface';
 import { getDCAValues, getHistoricalData, getRelativeChange, getNoInvestmentData } from './functions';
 import { Express } from 'express';
+import { Request, Response } from 'express';
 const express = require('express');
 
 const cors = require('cors');
@@ -13,7 +14,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 4002;
 
-app.post("/get_chart_data", async (req: any, res: any) => {
+app.post("/get_chart_data", async (req: Request, res: Response) => {
   // generates chart data for each ticker in req.body.tickers
   const tickers: string[] = req.body.tickers;
   const startDate: string = req.body.startDate;
@@ -43,7 +44,7 @@ app.post("/get_chart_data", async (req: any, res: any) => {
   res.json(data)
 })
 
-app.post("/validate_ticker", async (req: any, res: any) => {
+app.post("/validate_ticker", async (req: Request, res: Response) => {
   // if ticker is valid, returns chart.error = null
   const ticker: string = req.body.ticker;
 
