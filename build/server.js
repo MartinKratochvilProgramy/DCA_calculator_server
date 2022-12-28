@@ -42,7 +42,7 @@ var cors = require('cors');
 require('dotenv').config();
 var fetch = require('node-fetch');
 var app = express();
-app.use(cors()); // allow localhost 3000 (client) requests
+app.use(cors());
 app.use(express.json());
 var PORT = process.env.PORT || 4002;
 app.post("/get_chart_data", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
