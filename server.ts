@@ -8,7 +8,7 @@ require('dotenv').config()
 const fetch = require('node-fetch');
 
 const app: Express = express();
-app.use(cors()); // allow localhost 3000 (client) requests
+app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 4002;
