@@ -1,6 +1,7 @@
-import express, { Express } from 'express';
 import { TickerDataInterface } from './types/TickerDataInterface';
 import { getDCAValues, getHistoricalData, getRelativeChange, getNoInvestmentData } from './functions';
+import { Express } from 'express';
+const express = require('express');
 
 const cors = require('cors');
 require('dotenv').config()
