@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+const fetch = require('node-fetch');
 
 export const validateTicker = async (req: Request, res: Response) => {
     // if ticker is valid, returns chart.error = null
